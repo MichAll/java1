@@ -3,9 +3,9 @@ package ru.progwards.java1.lessons.compare_if_cycles;
 public class TriangleSimpleInfo {
     public static int maxSide(int a, int b, int c) {
         int sideMax;
-        if (a > b & a > c)
+        if (a >= b & a >= c)
             sideMax = a;
-        else if ((b > a) & (b > c))
+        else if ((b >= a) & (b >= c))
              sideMax = b;
         else
              sideMax = c;
@@ -28,7 +28,7 @@ public class TriangleSimpleInfo {
     }
 
     public static void main(String[] args) {
-        System.out.println(maxSide(8, 7, 8));
+        System.out.println(maxSide(10, 9, 10));
         System.out.println(minSide(2, 1, 1));
         System.out.println(isEquilateralTriangle(3, 4,3));
     }

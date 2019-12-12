@@ -30,9 +30,9 @@ public class CyclesGoldenFibo {
         if (a==b || b==c || c==a) {
             int sideMax;
             int sideMin;
-            if (a > b & a > c)
+            if (a >= b & a >= c)
                 sideMax = a;
-            else if ((b > a) & (b > c))
+            else if ((b >= a) & (b >= c))
                 sideMax = b;
             else
                 sideMax = c;
@@ -52,7 +52,7 @@ public class CyclesGoldenFibo {
     }
 
     public static void main(String[] args) {
-        System.out.println(containsDigit(12345, 7));
+        System.out.println(containsDigit(10, 0));
 
         for (int i=1; i<=15; i++) {
             System.out.print("n = " + i +" число ");
