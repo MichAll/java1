@@ -14,9 +14,9 @@ public class TriangleSimpleInfo {
 
     public static int minSide(int a, int b, int c) {
         int sideMin;
-        if (a < b & a < c)
+        if (a <= b & a <= c)
             sideMin = a;
-        else if ((b < a) & (b < c))
+        else if ((b <= a) & (b <= c))
             sideMin = b;
         else
             sideMin = c;
@@ -29,7 +29,7 @@ public class TriangleSimpleInfo {
 
     public static void main(String[] args) {
         System.out.println(maxSide(10, 9, 10));
-        System.out.println(minSide(2, 1, 1));
+        System.out.println(minSide(8, 8, 10));
         System.out.println(isEquilateralTriangle(3, 4,3));
     }
 }

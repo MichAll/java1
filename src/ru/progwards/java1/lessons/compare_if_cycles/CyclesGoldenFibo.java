@@ -36,9 +36,9 @@ public class CyclesGoldenFibo {
                 sideMax = b;
             else
                 sideMax = c;
-            if (a < b & a < c)
+            if (a <= b & a <= c)
                 sideMin = a;
-            else if ((b < a) & (b < c))
+            else if ((b <= a) & (b <= c))
                 sideMin = b;
             else
                 sideMin = c;
