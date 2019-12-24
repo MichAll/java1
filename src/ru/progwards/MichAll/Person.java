@@ -8,7 +8,7 @@
 //    }
 //    @Override
 //    public String toString() {
-//        return (x + ", "+ y);
+//        return (x + ","+ y);
 //    }
 //}
 //
@@ -20,7 +20,7 @@
 //    }
 //    @Override
 //    public String toString() {
-//        return (super.toString() + ", " + z);
+//        return (super.toString() + "," + z);
 //    }
 //}
 //    public static void main(String[] args) {
