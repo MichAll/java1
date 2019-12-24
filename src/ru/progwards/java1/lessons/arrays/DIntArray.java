@@ -1,7 +1,5 @@
 package ru.progwards.java1.lessons.arrays;
 
-import java.util.Arrays;
-
 public class DIntArray {
 
     private int[] intArray;
@@ -11,7 +9,7 @@ public class DIntArray {
 // Для этого нужно будет разместить новый массив нужного размера,
 // скопировать в него старый, и добавить в хвост элемент num.
     public void add(int num) {
-        int[] newArray = Arrays.copyOf(intArray, intArray.length + 1);
+        int[] newArray = java.util.Arrays.copyOf(intArray, intArray.length + 1);
         newArray[intArray.length] = num;
     }
 
@@ -48,10 +46,10 @@ public class DIntArray {
 
     public static void main(String[] args) {
         DIntArray arrayNew = new DIntArray();
-        arrayNew.intArray = new int[]{1, 2, 6, 7};
-        arrayNew.add(5);
-        arrayNew.atInsert(2, 3);
-        arrayNew.atDelete(3);
-        System.out.println(arrayNew.at(3));
+        arrayNew.intArray = new int[5];
+        arrayNew.add(-7);
+        arrayNew.atInsert(11, 3);
+        arrayNew.atDelete(9);
+        System.out.println(arrayNew.at(4));
     }
 }

@@ -1,18 +1,23 @@
 package ru.progwards.java1.lessons.arrays;
 
 public class ArraySort {
-    public static void main(String[] args) {
-        int[] mass = new int[]{8, 2, 9, 3, 0, 7, 6, 4, 1};
+
+    public static void sort(int[] a) {
         int posMass;
-        for (int i = 0; i < mass.length; i++) {
-            for (int j = i + 1; j < mass.length; j++) {
-                if (mass[i] > mass[j]) {
-                    posMass = mass[i];
-                    mass[i] = mass[j];
-                    mass[j] = posMass;
+        for (int i = 0; i < a.length; i++) {
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[i] > a[j]) {
+                    posMass = a[i];
+                    a[i] = a[j];
+                    a[j] = posMass;
                 }
             }
         }
-        System.out.println(java.util.Arrays.toString(mass));
+        System.out.println(java.util.Arrays.toString(a));
+    }
+
+    public static void main(String[] args) {
+        int[] mass = new int[]{8, 2, 9, 3, 0, 7, 6, 4, 1};
+        sort(mass);
     }
 }
