@@ -1,4 +1,4 @@
-package ru.progwards.ru.progwards.java1.lessons.arrays;
+package ru.progwards.java1.lessons.arrays;
 
 public class Eratosthenes {
 //чтобы узнать, я является ли число n простым,
@@ -6,7 +6,7 @@ public class Eratosthenes {
 // Значение true, означает простое число, false - составное.
 
     private boolean[] sieve;
-// должен разместить массив sieve с размером в N и заполнить его значениями true,
+    // должен разместить массив sieve с размером в N и заполнить его значениями true,
 // после чего вызвать метод sift()
     public Eratosthenes(int N) {
         boolean [] sieve = new boolean[N];
@@ -14,7 +14,7 @@ public class Eratosthenes {
         java.util.Arrays.fill(this.sieve, true);
         sift();
     }
-// реализует алгоритм Эратосфена, просеивая составные числа.
+    // реализует алгоритм Эратосфена, просеивая составные числа.
     private void sift() {
         int N = sieve.length;
         for (int i=2; i<N-1; i++) {
@@ -27,7 +27,7 @@ public class Eratosthenes {
             }
         }
     }
-// который возвращает sieve[n], что бы можно было узнать,
+    // который возвращает sieve[n], что бы можно было узнать,
 // простое число n или составное
     public boolean isSimple(int n) {
         int N = sieve.length;

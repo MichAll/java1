@@ -1,4 +1,4 @@
-package ru.progwards.ru.progwards.java1.lessons.arrays;
+package ru.progwards.java1.lessons.arrays;
 
 import java.util.Arrays;
 
@@ -13,7 +13,7 @@ public class DIntArray {
     public void add(int num) {
         int[] newArray = Arrays.copyOf(intArray, intArray.length + 1);
         newArray[intArray.length] = num;
-     }
+    }
 
     // 3.3 метод  - добавляет элемент num в позицию pos массива,
 // при этом размер массива должен увеличиться на 1.
@@ -26,7 +26,7 @@ public class DIntArray {
             System.arraycopy(intArray, 0, newArray, 0, intArray.length);
             newArray[pos] = num;
             System.arraycopy(intArray, pos, newArray, pos + 1, intArray.length - pos);
-         }
+        }
     }
 
     // 3.4 метод  - удаляет элемент в позиции pos массива,
@@ -38,7 +38,7 @@ public class DIntArray {
             int[] newArray = new int[intArray.length - 1];
             System.arraycopy(intArray, 0, newArray, 0, intArray.length - 1);
             System.arraycopy(intArray, pos + 1, newArray, pos, intArray.length - pos - 1);
-         }
+        }
     }
 
     // 3.5 метод - возвращает элемент по индексу pos.
