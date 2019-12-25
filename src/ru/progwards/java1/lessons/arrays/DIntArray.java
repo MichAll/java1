@@ -9,7 +9,8 @@ public class DIntArray {
 // Для этого нужно будет разместить новый массив нужного размера,
 // скопировать в него старый, и добавить в хвост элемент num.
     public void add(int num) {
-        int[] newArray = java.util.Arrays.copyOf(intArray, intArray.length + 1);
+        int[] newArray = new int[intArray.length + 1];
+        System.arraycopy(intArray, 0, newArray, 0, intArray.length);
         newArray[intArray.length] = num;
     }
 
@@ -46,7 +47,7 @@ public class DIntArray {
 
     public static void main(String[] args) {
         DIntArray arrayNew = new DIntArray();
-        arrayNew.intArray = new int[5];
+        arrayNew.intArray = new int[]{1, 2, 3, 4, 5};
         arrayNew.add(-7);
         arrayNew.atInsert(11, 3);
         arrayNew.atDelete(9);
