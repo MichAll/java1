@@ -16,6 +16,7 @@ public class Eratosthenes {
     }
     // реализует алгоритм Эратосфена, просеивая составные числа.
     private void sift() {
+
         int N = sieve.length;
         for (int i=2; i<N-1; i++) {
             for (int j=1; j<N-1; j++) {
