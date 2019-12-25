@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class DIntArray {
 
     private int[] intArray;
+
+    public DIntArray () {
+
+    }
     // 3.2 метод - добавляет элемент num в конец массива,
 // при этом размер массива должен увеличиться на 1.
     public void add(int num) {
