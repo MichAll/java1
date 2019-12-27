@@ -12,10 +12,6 @@ public class DIntArray {
      // 3.2 метод - добавляет элемент num в конец массива,
 // при этом размер массива должен увеличиться на 1.
     public void add(int num) {
-//        int[] newArray = Arrays.copyOf(intArray, intArray.length + 1);
-//        newArray[intArray.length] = num;
-//        intArray = Arrays.copyOf(newArray, newArray.length);
-//        System.out.println(Arrays.toString(intArray));
 
         int[] newArray = new int[intArray.length + 1];
         System.arraycopy(intArray, 0, newArray, 0, intArray.length);
