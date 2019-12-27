@@ -6,20 +6,21 @@ public class DIntArray {
 
     private int[] intArray;
 
-//    public DIntArray() {
-//        intArray = new int [0];
-//    }
+    public DIntArray() {
+        intArray = new int [0];
+    }
      // 3.2 метод - добавляет элемент num в конец массива,
 // при этом размер массива должен увеличиться на 1.
     public void add(int num) {
-        int[] newArray = Arrays.copyOf(intArray, intArray.length + 1);
-        newArray[intArray.length] = num;
-        intArray = Arrays.copyOf(newArray, newArray.length);
-        System.out.println(Arrays.toString(intArray));
+//        int[] newArray = Arrays.copyOf(intArray, intArray.length + 1);
+//        newArray[intArray.length] = num;
+//        intArray = Arrays.copyOf(newArray, newArray.length);
+//        System.out.println(Arrays.toString(intArray));
 
-//        int[] newArray = new int[intArray.length + 1];
-//        System.arraycopy(intArray, 0, newArray, 0, intArray.length);
-//        newArray[newArray.length-1] = num;
+        int[] newArray = new int[intArray.length + 1];
+        System.arraycopy(intArray, 0, newArray, 0, intArray.length);
+        newArray[newArray.length-1] = num;
+        intArray = Arrays.copyOf(newArray, newArray.length);
     }
     // 3.3 метод  - добавляет элемент num в позицию pos массива,
 // при этом размер массива должен увеличиться на 1.
@@ -30,6 +31,7 @@ public class DIntArray {
             System.arraycopy(intArray, 0, newArray, 0, intArray.length);
             newArray[pos] = num;
             System.arraycopy(intArray, pos, newArray, pos + 1, intArray.length - pos);
+            intArray = Arrays.copyOf(newArray, newArray.length);
         }
     }
     // 3.4 метод  - удаляет элемент в позиции pos массива,
@@ -39,6 +41,7 @@ public class DIntArray {
             int[] newArray = new int[intArray.length - 1];
             System.arraycopy(intArray, 0, newArray, 0, intArray.length - 1);
             System.arraycopy(intArray, pos + 1, newArray, pos, intArray.length - pos - 1);
+            intArray = Arrays.copyOf(newArray, newArray.length);
         }
     }
     // 3.5 метод - возвращает элемент по индексу pos.
