@@ -6,9 +6,9 @@ public class DIntArray {
 
     private int[] intArray;
 
-    public DIntArray() {
-        intArray = new int [0];
-    }
+//    public DIntArray() {
+//        intArray = new int [0];
+//    }
      // 3.2 метод - добавляет элемент num в конец массива,
 // при этом размер массива должен увеличиться на 1.
     public void add(int num) {
