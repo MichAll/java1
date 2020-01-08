@@ -1,15 +1,23 @@
-package ru.progwards.java1.lessons.classes;
+package ru.progwards.java1.lessons.interfaces;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements FoodCompare, CompareWeight {
     double weight;
 
     public Animal(double weight) {
         this.weight=weight;
     }
+
     enum AnimalKind { ANIMAL, COW, HAMSTER, DUCK }
     enum FoodKind { UNKNOWN, HAY, CORN }
+
+    @Override
+    public CompareResult compareWeight(CompareWeight smthHasWeigt) {
+        if (this.getWeight() == getWeight()) return CompareResult.EQUAL;
+        else if (this.getWeight() < getWeight()) return CompareResult.LESS;
+        else return CompareResult.GREATER;
+    }
 
 //возвращает информацию о цене 1 кг еды
     public double getFood1kgPrice() {
@@ -24,7 +32,9 @@ public class Animal {
     public double getFoodPrice() {
         return calculateFoodWeight() * getFood1kgPrice();
     }
+
 //возвращает результаты сравнения цены еды для данного животного с ценой еды для другого животного, используя Double.compare
+    @Override
     public int compareFoodPrice(Animal aminal) {
         return Double.compare(this.calculateFoodWeight(), aminal.calculateFoodWeight());
     }

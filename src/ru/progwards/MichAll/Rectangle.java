@@ -1,5 +1,7 @@
 package ru.progwards.MichAll;
 
+import java.util.Objects;
+
 public class Rectangle {
         private double a;
         private double b;
@@ -18,6 +20,14 @@ public class Rectangle {
         Double res2 = anRectangle.area();
         return res1.compareTo(res2);
     }
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) return true;
+        if (anObject == null || getClass() != anObject.getClass()) return false;
+        Rectangle rectangle = (Rectangle) anObject;
+        return Double.compare(rectangle.area(), area()) == 0;
+    }
+
 //    public int arrayMax(int[] a) {
 //        int maxInt;
 //        if (a.length>0) {
