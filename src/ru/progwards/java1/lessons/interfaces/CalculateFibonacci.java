@@ -8,14 +8,9 @@ public class CalculateFibonacci {
         public int n;
         public int fibo;
 
-        //возвращает lastFibo
-        public CacheInfo getLastFibo() {
-            return lastFibo;
-        }
-
-        //сбрасывает lastFibo в null
-        public void clearLastFibo() {
-            lastFibo = null;
+        CacheInfo () {
+            this.n = n;
+            this.fibo = fibo;
         }
     }
 
@@ -36,6 +31,15 @@ public class CalculateFibonacci {
             lastFibo.n=n; lastFibo.fibo=newFibo;
             return newFibo;
         }
+    }
+    //возвращает lastFibo
+    public CacheInfo getLastFibo() {
+        return lastFibo;
+    }
+
+    //сбрасывает lastFibo в null
+    public void clearLastFibo() {
+        lastFibo = null;
     }
 
     public static void main(String[] args) {
