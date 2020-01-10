@@ -29,15 +29,16 @@ public class CalculateFibonacci {
     }
 
     //возвращает lastFibo
-    public static CacheInfo getLastFibo() {
-        return lastFibo;
+    public CacheInfo getLastFibo() {
+        return CalculateFibonacci.lastFibo;
     }
 
 //сбрасывает lastFibo в null
-    public static void clearLastFibo() {
-        lastFibo = null;
+    public void clearLastFibo() {
+        CalculateFibonacci.lastFibo = null;
     }
 
     public static void main(String[] args) {
+
     }
 }
