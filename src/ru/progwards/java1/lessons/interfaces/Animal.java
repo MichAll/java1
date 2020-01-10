@@ -35,8 +35,8 @@ public class Animal implements FoodCompare, CompareWeight {
 
 //возвращает результаты сравнения цены еды для данного животного с ценой еды для другого животного, используя Double.compare
     @Override
-    public int compareFoodPrice(Animal aminal) {
-        return Double.compare(this.calculateFoodWeight(), aminal.calculateFoodWeight());
+    public int compareFoodPrice(Animal animal) {
+        return Double.compare(this.getFoodPrice(), animal.getFoodPrice());
     }
 
     @Override
@@ -84,5 +84,6 @@ public class Animal implements FoodCompare, CompareWeight {
         Animal animal = new Animal(25);
         System.out.println(animal.toString());
         System.out.println(animal.toStringFull());
+//        System.out.println(new Cow(1D).сompareFoodPrice(new Duck(1D)));
     }
 }

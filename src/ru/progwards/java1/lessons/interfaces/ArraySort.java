@@ -1,10 +1,6 @@
 package ru.progwards.java1.lessons.interfaces;
 
-public class ArraySort implements CompareWeight {
-
-    public CompareResult compareWeight(CompareWeight smthHasWeigt){
-        return CompareResult.EQUAL;
-    }
+public class ArraySort {
 
     public static void sort(CompareWeight[] a) {
 

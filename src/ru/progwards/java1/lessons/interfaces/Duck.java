@@ -1,6 +1,6 @@
 package ru.progwards.java1.lessons.interfaces;
 
-public class Duck extends Animal{
+public class Duck extends Animal {
 
     public Duck(double weight) {
         super(weight);
@@ -16,6 +16,11 @@ public class Duck extends Animal{
     @Override
     public double getFoodCoeff() {
         return 0.04;
+    }
+
+    @Override
+    public int compareFoodPrice(Animal animal) {
+        return Double.compare(this.calculateFoodWeight(), animal.calculateFoodWeight());
     }
 
     public static void main(String[] args){

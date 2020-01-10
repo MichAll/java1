@@ -17,6 +17,12 @@ public class Cow extends Animal {
     public double getFoodCoeff() {
           return 0.05;
     }
+
+    @Override
+    public int compareFoodPrice(Animal animal) {
+        return Double.compare(this.calculateFoodWeight(), animal.calculateFoodWeight());
+    }
+
     public static void main(String[] args) {
         System.out.println(new Cow(100).toString());
         System.out.println(new Cow(100).toStringFull());

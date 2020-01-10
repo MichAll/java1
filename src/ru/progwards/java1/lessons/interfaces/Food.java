@@ -9,9 +9,16 @@ public class Food implements CompareWeight {
     public int getWeight() {
         return weight;
     }
+    @Override
     public CompareResult compareWeight(CompareWeight smthHasWeigt) {
-        if (this.getWeight() == getWeight()) return CompareResult.EQUAL;
+
+        System.out.println(smthHasWeigt);
+        if (this.weight == weight) return CompareResult.EQUAL;
         else if (this.weight < weight) return CompareResult.LESS;
         else return CompareResult.GREATER;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Food(300).compareWeight(new Food(400)));
     }
 }
