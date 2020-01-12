@@ -26,7 +26,7 @@ public class CalculateFibonacci {
         int newFibo = 0;
         for (int i = 1; i <= n; i++) {
             newFibo = elementFibo2 + elementFibo1;
-            elementFibo1 = elementFibo2;
+            if (i!=1) elementFibo1 = elementFibo2;
             elementFibo2 = newFibo;
         }
         lastFibo = new CacheInfo(n, newFibo);
@@ -44,7 +44,6 @@ public class CalculateFibonacci {
     }
 
     public static void main(String[] args) {
-        new CacheInfo(10, 55);
-        fiboNumber(15);
+        System.out.println(fiboNumber(15));
     }
 }
