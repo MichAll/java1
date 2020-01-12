@@ -33,12 +33,12 @@ public class CalculateFibonacci {
         }
     }
     //возвращает lastFibo
-    public CacheInfo getLastFibo() {
+    public static CacheInfo getLastFibo() {
         return lastFibo;
     }
 
     //сбрасывает lastFibo в null
-    public void clearLastFibo() {
+    public static void clearLastFibo() {
         lastFibo = null;
     }
 

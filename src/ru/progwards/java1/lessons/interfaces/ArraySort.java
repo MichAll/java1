@@ -1,27 +1,23 @@
 package ru.progwards.java1.lessons.interfaces;
 
 public class ArraySort {
-
+//Для класса ArraySort из задачи 2 урока 6 переделать сортировку массива целых чисел
+//на сортировку через интерфейс CompareWeight public static void sort(CompareWeight[] a)
     public static void sort(CompareWeight[] a) {
-
-    }
-
-    public static void sort(int[] a) {
-        int posMass;
+        CompareWeight posMass;
         for (int i = 0; i < a.length; i++) {
             for (int j = i + 1; j < a.length; j++) {
-                if (a[i] > a[j]) {
+                if (((Animal)a[i]).getWeight() > ((Animal)a[j]).getWeight()) {
                     posMass = a[i];
                     a[i] = a[j];
                     a[j] = posMass;
                 }
             }
         }
-        System.out.println(java.util.Arrays.toString(a));
     }
 
     public static void main(String[] args) {
-        int[] mass = new int[]{8, 2, 9, 3, 0, 7, 6, 4, 1};
+        CompareWeight[] mass = {new Animal(200.5), new Animal(10.3), new Animal(300.0)};
         sort(mass);
     }
 }
