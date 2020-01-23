@@ -34,8 +34,8 @@ public class ArrayInteger {
     //сложить 2 числа, не используя BigInteger, а  используя массив digits, результат поместить в экземпляр ArrayInteger,
 // у которого был вызван метод. При переполнении вернуть false, при этом само число сбросить в 0
     boolean add(ArrayInteger num) {
-        Integer x = num.toInt().byteValue() + this.toInt().byteValue();
-        if (x.toString().length() > 10 | this.digits.length < x) {
+        Integer x = num.toInt().intValue() + this.toInt().intValue();
+        if (x.toString().length() > 10 | this.digits.length < num.digits.length) {
             Arrays.fill(this.digits, (byte) 0);
             return false;
         } else {
@@ -45,12 +45,12 @@ public class ArrayInteger {
     }
 
     public static void main(String[] args) {
-        ArrayInteger arrayNew = new ArrayInteger(7);
-        arrayNew.fromInt(BigInteger.valueOf(1234567));
-        System.out.println(arrayNew.toInt());
-        ArrayInteger arrayNew1 = new ArrayInteger(8);
-        arrayNew1.digits = new byte[]{2, 3, 4, 5, 7, 8, 9, 1};
-        System.out.println(arrayNew.add(arrayNew1));
+        ArrayInteger ai1 = new ArrayInteger(7);
+        ai1.fromInt(new BigInteger("9793928"));
+        ArrayInteger ai2 = new ArrayInteger(5);
+        ai2.fromInt(new BigInteger("75558"));
+        ai1.add(ai2);
+        System.out.println(ai1.toInt());
 //        Реализовать класс ArrayInteger - целого числа произвольной длины на массиве byte[] digits;
 //        Каждый элемент массива digits[i] может хранить только цифру, то есть число от 0 до 9.
 //        Например, число 159 должно занять 3 ячейки массива digits[0] = 9; digits[1] = 5; digits[2] = 1;
