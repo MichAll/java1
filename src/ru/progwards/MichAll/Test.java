@@ -1,7 +1,11 @@
 package ru.progwards.MichAll;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Test {
-//    static double fractional(double num) {
+
+    //    static double fractional(double num) {
 //        int int1 = (int)num;
 //        double double1 = num - int1;
 //        return (double1);
@@ -27,11 +31,50 @@ public class Test {
 //
 //        return sumA;
 //    }
+    public Integer sqr(Integer n) {
+        Integer sqrN = 0;
+        try {
+            sqrN = n * n;
+        } catch (NullPointerException e) {
+            return -1;
+        }
+        return sqrN;
+    }
+
+    public String test(String filename)  throws IOException {
+        try {
+            filename.toString();
+            return "File processing";
+        } catch (Exception e) {
+            throw new IOException("File not found");
+        }
+    }
+
+    private int lineCount(String filename) throws IOException {
+        int i=0;
+        try {
+            FileReader reader = new FileReader(filename);
+            Scanner scanner = new Scanner(reader);
+            try {
+                while (scanner.hasNextLine()) {
+                    scanner.nextLine();
+                    i += 1;
+                }
+            } finally {
+                reader.close();
+                scanner.close();
+            }
+        } catch (IOException e) {
+            throw new IOException("файл не найден");
+        }
+        return i;
+    }
 
     public static void main(String[] args) {
+
 //        double num = 1.53;
 //        System.out.println(fractional(num));
 //        System.out.println(addAsStrings(2,1));
 //        System.out.println(factorial(0));
     }
-}
+ }

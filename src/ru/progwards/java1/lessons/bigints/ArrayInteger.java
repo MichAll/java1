@@ -1,5 +1,6 @@
 package ru.progwards.java1.lessons.bigints;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.Arrays;
 
@@ -50,6 +51,7 @@ public class ArrayInteger {
                     perMen = (byte) ((this.digits[i] + num10) % 10);
                     num10 = (byte) (this.digits[i] / 10);
                     this.digits[i] = perMen;
+                    break;
                 }
              }
         }
