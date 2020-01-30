@@ -15,12 +15,14 @@ public class Coder {
             FileWriter writer = new FileWriter(outFileName);
             try {
                 while (scanner.hasNextLine()) {
+                    System.out.println();
                     String symbol = "";
                     char[] str = scanner.nextLine().toCharArray();
                     for (int i = 0; i < str.length; i++) {
                         symbol += code[((int)str[i])];
                     }
                     writer.write(symbol);
+                    if (scanner.hasNextLine())
                     writer.write("\n");
                     symbol = "";
                 }

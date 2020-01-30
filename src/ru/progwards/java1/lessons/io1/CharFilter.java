@@ -15,13 +15,21 @@ public class CharFilter {
             try {
                 while (scanner.hasNextLine()) {
                     String symbol = "";
+                    String sym1 ="";
                     char[] str = scanner.nextLine().toCharArray();
+                    char[] str1 = filter.toCharArray();
                     for (int i = 0; i < str.length; i++) {
-                        if (filter.indexOf(str[i]) == -1)
-                            symbol += str[i];
-                        else symbol += "";
+                        sym1 = String.valueOf(str[i]);
+                        for (int j = 0; j < str1.length; j++) {
+                            if (str[i] == str1[j]) {
+                                sym1 = "";
+                                break;
+                            }
+                        }
+                        symbol+=sym1;
                     }
                     writer.write(symbol);
+                    if (scanner.hasNextLine())
                     writer.write("\n");
                     symbol = "";
                 }
@@ -38,7 +46,7 @@ public class CharFilter {
     public static void main(String[] args) throws IOException {
         String inFile = "C:/csbin.txt";
         String outFile = "C:/csbout.txt";
-        String strFilter = "=[.";
-        filterFile(inFile, outFile, strFilter);
+        String obscene = "— -,.()";
+        filterFile(inFile, outFile, obscene);
     }
 }
