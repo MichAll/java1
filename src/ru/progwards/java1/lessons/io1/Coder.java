@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Coder {
 
     public static void codeFile(String inFileName, String outFileName, char[] code, String logName) {
-
+//Шифр задается маcсивом char[] code, где каждому символу symbol оригинального файла соответствует символ code[(int)symbol] выходного файла.
         try {
             FileReader reader = new FileReader(inFileName);
             Scanner scanner = new Scanner(reader);
@@ -17,10 +17,9 @@ public class Coder {
                 String symbol = "";
                 char[] str;
                 while (scanner.hasNextLine()) {
-                    System.out.println();
                     str = scanner.nextLine().toCharArray();
                     for (int i = 0; i < str.length; i++) {
-                        symbol += code[(int)str[i]-33];
+                         symbol += code[(int)str[i]];
                     }
                     writer.write(symbol);
                     symbol = "";
@@ -48,7 +47,7 @@ public class Coder {
     public static void main(String[] args) {
         String inFile = "C:/csbin1.txt";
         String outFile = "C:/csbout.txt";
-        char[] codeFile = {'\65','\66','\67','\63'};
+        char[] codeFile = new char[]{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
         String logFile = "C:/csb.log";
         codeFile(inFile, outFile, codeFile, logFile);
     }
