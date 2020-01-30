@@ -14,17 +14,17 @@ public class Coder {
             Scanner scanner = new Scanner(reader);
             FileWriter writer = new FileWriter(outFileName);
             try {
+                String symbol = "";
+                char[] str;
                 while (scanner.hasNextLine()) {
                     System.out.println();
-                    String symbol = "";
-                    char[] str = scanner.nextLine().toCharArray();
+                    str = scanner.nextLine().toCharArray();
                     for (int i = 0; i < str.length; i++) {
-                        symbol += code[((int)str[i])];
+                        symbol += code[(int)str[i]-33];
                     }
                     writer.write(symbol);
-                    if (scanner.hasNextLine())
-                    writer.write("\n");
                     symbol = "";
+                    if (scanner.hasNextLine()) writer.write("\n");
                 }
             } finally {
                 reader.close();
@@ -48,7 +48,7 @@ public class Coder {
     public static void main(String[] args) {
         String inFile = "C:/csbin1.txt";
         String outFile = "C:/csbout.txt";
-        char[] codeFile = {'\65','\66','\67'};
+        char[] codeFile = {'\65','\66','\67','\63'};
         String logFile = "C:/csb.log";
         codeFile(inFile, outFile, codeFile, logFile);
     }
