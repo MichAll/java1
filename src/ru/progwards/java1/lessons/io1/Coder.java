@@ -16,7 +16,8 @@ public class Coder {
             try {
                 String symbol = "";
                 char[] str;
-                while (scanner.hasNextLine()) {
+//                while (scanner.hasNextLine()) {
+                for (int j = 0; scanner.hasNextLine(); j++) {
                     str = scanner.nextLine().toCharArray();
                     for (int i = 0; i < str.length; i++) {
                          symbol += code[(int)str[i]];
