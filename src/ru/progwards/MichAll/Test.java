@@ -70,6 +70,17 @@ public class Test {
         return i;
     }
 
+//    public void test(int n) throws IOException{
+//        try {
+//            doSomething(n);
+//        } catch (IOException e){
+//            System.out.println(e.getMessage());
+//            throw new IOException(e);
+//        } finally {
+//            System.out.println("finally executed");
+//        }
+//    }
+
     public static void main(String[] args) {
 
 //        double num = 1.53;

@@ -16,6 +16,8 @@ public class Coder {
             try {
                 String symbol = "";
                 char[] str;
+//При работе через сканер вы упускаете символ конца строки, который тоже может быть закодирован.
+// Чтобы избежать этого, проще всего не использовать сканер, а производить чтение и запись посимвольно.
 //                while (scanner.hasNextLine()) {
                 for (int j = 0; scanner.hasNextLine(); j++) {
                     str = scanner.nextLine().toCharArray();
