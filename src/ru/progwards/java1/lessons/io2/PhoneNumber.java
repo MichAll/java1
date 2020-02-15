@@ -27,10 +27,6 @@ public class PhoneNumber {
     }
 
     public static void main(String[] args) {
-        System.out.println(format("+7(921)8758947"));
-        System.out.println(format("(921) 45-65258"));
-        System.out.println(format("(921)45652-58"));
-        System.out.println(format("8 921 456-52-58"));
-        System.out.println(format("921 45-52-52"));
+        System.out.println(format("8(058)430-85-3311"));
     }
 }
