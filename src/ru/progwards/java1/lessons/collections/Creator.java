@@ -40,8 +40,8 @@ public class Creator {
     }
 
     public static void main(String[] args) {
-        System.out.println(fillEven(10).toString());
-        System.out.println(fillOdd(10).toString());
-        System.out.println(fill3(10).toString());
+        System.out.println(fillEven(3).toString());
+        System.out.println(fillOdd(3).toString());
+        System.out.println(fill3(9).toString());
     }
 }
