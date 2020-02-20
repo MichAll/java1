@@ -2,6 +2,7 @@ package ru.progwards.java1.lessons.sets;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class SetOperations {
     //  - объединение множеств
@@ -29,6 +30,7 @@ public class SetOperations {
     public static Set<Integer> symDifference(Set<Integer> set1, Set<Integer> set2) {
         HashSet result = new HashSet(set1);
         HashSet result1 = new HashSet(set1);
+        result.addAll(set2);
         result1.retainAll(set2);
         result.removeAll(result1);
         return result;
