@@ -15,6 +15,8 @@ public class CollectionsSort {
                 }
             }
         }
+        data.clear();
+        data.addAll(list);
     }
 
 //  по следующему алгоритму
@@ -30,12 +32,15 @@ public class CollectionsSort {
             list.add(Collections.min(listData));
             listData.remove(Collections.min(listData));
         }
-        listData.addAll(list);
+        data.clear();
+        data.addAll(list);
     }
 // используя метод sort из Collections
     public static void collSort(Collection<Integer> data) {
         List<Integer> list = new ArrayList<>(data);
         Collections.sort(list);
+        data.clear();
+        data.addAll(list);
     }
 // в котором сравнить производительность методов и вернуть их имена,
 // отсортированные в порядке производительности, первый - самый быстрый.
