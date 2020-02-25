@@ -42,7 +42,7 @@ public class CollectionsSort {
 // В случае равенства производительности каких-то методов, возвращать их названия в алфавитном порядке.
     public static Collection<String> compareSort(){
         List<Integer> massData = new ArrayList<>();
-        int countEl = 10000;
+        int countEl = 99;
         Random rnd = new Random();
         for (int i=0; i< countEl; i++)
             massData.add(rnd.nextInt());
@@ -58,13 +58,14 @@ public class CollectionsSort {
         collSort(massData);
         System.out.println(System.currentTimeMillis()-start);
         ListSort list3 = new ListSort("collSort",System.currentTimeMillis()-start);
-//        TreeSet<ListSort> treeSet = new TreeSet<>(new Comparator<ListSort>() {
-//            @Override
-//            public int compare(ListSort o1, ListSort o2) {
-//                return Long.compare(o1.time,o2.time);
-//            }
-//        });
-        TreeSet<ListSort> treeSet = new TreeSet();
+        TreeSet<ListSort> treeSet = new TreeSet<>(new Comparator<ListSort>() {
+            @Override
+            public int compare(ListSort o1, ListSort o2) {
+                if (o1.time>o2.time) return 1;
+                else if (o1.time<o2.time) return -1;
+                else return o1.list.compareTo(o2.list);
+            }
+        });
         treeSet.addAll(List.of(list1, list2, list3));
         List<String> result = new ArrayList(treeSet);
         return result;
