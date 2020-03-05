@@ -31,7 +31,6 @@ public class CharFilter {
                     writer.write(symbol);
                     if (scanner.hasNextLine())
                     writer.write("\n");
-                    symbol = "";
                 }
             } finally {
                 reader.close();
