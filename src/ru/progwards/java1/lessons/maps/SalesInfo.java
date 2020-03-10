@@ -13,7 +13,7 @@ public class SalesInfo {
         try (FileReader fileRead = new FileReader(fileName)) {
             try (Scanner scanner = new Scanner(fileRead)) {
                 while (scanner.hasNextLine()) {
-                    String [] str = scanner.nextLine().replaceAll(", ",",").split(",");
+                    String [] str = scanner.nextLine().split(", ");
                     if (str.length == 4) {
                         try {
                             Integer.parseInt(str[2]);
