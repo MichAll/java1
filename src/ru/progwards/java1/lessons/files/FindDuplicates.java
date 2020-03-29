@@ -19,7 +19,7 @@ public class FindDuplicates {
         Path dir = Paths.get(startPath);
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
         try {
-            Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+            Files.walkFileTree(dir, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     if (pathMatcher.matches(dir.relativize(path))) {
@@ -41,7 +41,7 @@ public class FindDuplicates {
         for (int i = 0; i < paths.size(); i++) {
             List<String> pathsName = new ArrayList<>();
             Path fileS = paths.get(i);
-            int filesFound = 0;
+            boolean filesFound = false;
             for (int y = i + 1; y < paths.size(); y++) {
                 Path fileF = paths.get(y);
 // проверка "Имя, сестра, имя!"
@@ -55,7 +55,7 @@ public class FindDuplicates {
                                     if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
                                         if (!pathsName.contains(fileF.toString())) {
                                             pathsName.add(fileF.toString());
-                                            filesFound = 1;
+                                            filesFound = true;
                                         }
                                     }
                                 }
@@ -66,13 +66,13 @@ public class FindDuplicates {
                     }
                 }
             }
-            if (filesFound == 1) pathsName.add(fileS.toString());
+            if (filesFound) pathsName.add(fileS.toString());
             if (!pathsName.isEmpty()) result.add(pathsName);
         }
         return result;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         FindDuplicates x = new FindDuplicates();
         System.out.println(x.findDuplicates("C:/totalcmd"));
     }
