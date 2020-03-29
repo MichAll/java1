@@ -22,6 +22,10 @@ class TimeCl {
 //        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
 
     public static void main(String[] args) {
+        LocalDateTime ldt2= LocalDateTime.of(2019, 05, 05, 22, 24);
+        System.out.println(ldt2);
+        ZoneId zid1 = ZoneId.of("Europe/Moscow");
+        System.out.println(zid1.getRules().getOffset(Instant.now()));
         TimeCl timeCl = new TimeCl();
         System.out.println(timeCl.createInstant());
         System.out.println(timeCl.parseZDT("01.01.2020 16:27:14.444 +0300 Moscow Standard Time"));
