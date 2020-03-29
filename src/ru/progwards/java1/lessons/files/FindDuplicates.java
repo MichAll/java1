@@ -12,7 +12,7 @@ public class FindDuplicates {
 //    дате-времени последнего изменения, размеру и по содержимому.
 
     //результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
-    public List<List<String>> findDuplicates(String startPath){
+    public List<List<String>> findDuplicates(String startPath) {
         List<List<String>> result = new ArrayList<>();
 // собираем все файлы
         List<Path> paths = new ArrayList<>();
@@ -21,7 +21,7 @@ public class FindDuplicates {
         try {
             Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
                 @Override
-                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs){
+                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     if (pathMatcher.matches(dir.relativize(path))) {
                         paths.add(path);
                     }
@@ -40,34 +40,36 @@ public class FindDuplicates {
         List<String> pathsName = new ArrayList<>();
         List<String> pathsDate = new ArrayList<>();
         List<String> pathsSize = new ArrayList<>();
-        List<String> pathsCont = new ArrayList<>();
-        for (int i=0; i<paths.size(); i++) {
+
+        for (int i = 0; i < paths.size(); i++) {
             Path fileS = paths.get(i);
             int filesFound = 0;
-            for (int y=i+1; y<paths.size(); y++) {
+            for (int y = i + 1; y < paths.size(); y++) {
                 Path fileF = paths.get(y);
 // проверка "Имя, сестра, имя!"
-                if (fileS.getFileName().compareTo(fileF.getFileName())== 0) {
-                    pathsName.add(fileF.toString());
-                    filesFound = 1;
+                if (fileS.getFileName().compareTo(fileF.getFileName()) == 0) {
+                    if (!pathsName.contains(fileF.toString())) {
+                        pathsName.add(fileF.toString());
+                        filesFound = 1;
+                    }
                 }
 // проверка "Срок годности"
                 try {
-                    if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))){
-                        pathsDate.add(fileF.toString());
-                        filesFound = 2;
+                    if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))) {
+                        if (!pathsName.contains(fileF.toString())) {
+                            pathsDate.add(fileF.toString());
+                            filesFound = 2;
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 // проверка "Размер горчичников и масла в жопу побольше"
                 try {
-                    if (Files.size(fileS)==Files.size(fileF)){
-                        pathsSize.add(fileF.toString());
-                        filesFound = 3;
-                        if (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF))){
-                            pathsCont.add(fileF.toString());
-                            filesFound = 4;
+                    if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
+                        if (!pathsName.contains(fileF.toString())) {
+                            pathsSize.add(fileF.toString());
+                            filesFound = 3;
                         }
                     }
                 } catch (IOException e) {
@@ -77,12 +79,10 @@ public class FindDuplicates {
             if (filesFound == 1) pathsName.add(fileS.toString());
             if (filesFound == 2) pathsDate.add(fileS.toString());
             if (filesFound == 3) pathsSize.add(fileS.toString());
-            if (filesFound == 4) pathsCont.add(fileS.toString());
         }
         result.add(pathsName);
         result.add(pathsDate);
         result.add(pathsSize);
-        result.add(pathsCont);
         return result;
     }
 
