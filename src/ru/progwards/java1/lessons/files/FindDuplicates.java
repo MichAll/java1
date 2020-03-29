@@ -52,12 +52,12 @@ public class FindDuplicates {
                             if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))) {
                                 if (!pathsName.contains(fileF.toString())) {
 // проверка "Размер горчичников и масла в жопу побольше"
-                                        if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
-                                            if (!pathsName.contains(fileF.toString())) {
-                                                pathsName.add(fileF.toString());
-                                                filesFound = 1;
-                                            }
+                                    if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
+                                        if (!pathsName.contains(fileF.toString())) {
+                                            pathsName.add(fileF.toString());
+                                            filesFound = 1;
                                         }
+                                    }
                                 }
                             }
                         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class FindDuplicates {
                 }
             }
             if (filesFound == 1) pathsName.add(fileS.toString());
-            result.add(pathsName);
+            if (!pathsName.isEmpty()) result.add(pathsName);
         }
         return result;
     }
