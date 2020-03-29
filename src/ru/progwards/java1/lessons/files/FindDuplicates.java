@@ -37,11 +37,9 @@ public class FindDuplicates {
             e.printStackTrace();
         }
 
-        List<String> pathsName = new ArrayList<>();
-        List<String> pathsDate = new ArrayList<>();
-        List<String> pathsSize = new ArrayList<>();
 
         for (int i = 0; i < paths.size(); i++) {
+            List<String> pathsName = new ArrayList<>();
             Path fileS = paths.get(i);
             int filesFound = 0;
             for (int y = i + 1; y < paths.size(); y++) {
@@ -49,40 +47,28 @@ public class FindDuplicates {
 // проверка "Имя, сестра, имя!"
                 if (fileS.getFileName().compareTo(fileF.getFileName()) == 0) {
                     if (!pathsName.contains(fileF.toString())) {
-                        pathsName.add(fileF.toString());
-                        filesFound = 1;
-                    }
-                }
 // проверка "Срок годности"
-                try {
-                    if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))) {
-                        if (!pathsName.contains(fileF.toString())) {
-                            pathsDate.add(fileF.toString());
-                            filesFound = 2;
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                        try {
+                            if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))) {
+                                if (!pathsName.contains(fileF.toString())) {
 // проверка "Размер горчичников и масла в жопу побольше"
-                try {
-                    if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
-                        if (!pathsName.contains(fileF.toString())) {
-                            pathsSize.add(fileF.toString());
-                            filesFound = 3;
+                                        if ((Files.size(fileS) == Files.size(fileF)) && (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF)))) {
+                                            if (!pathsName.contains(fileF.toString())) {
+                                                pathsName.add(fileF.toString());
+                                                filesFound = 1;
+                                            }
+                                        }
+                                }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
             if (filesFound == 1) pathsName.add(fileS.toString());
-            if (filesFound == 2) pathsDate.add(fileS.toString());
-            if (filesFound == 3) pathsSize.add(fileS.toString());
+            result.add(pathsName);
         }
-        result.add(pathsName);
-        result.add(pathsDate);
-        result.add(pathsSize);
         return result;
     }
 
