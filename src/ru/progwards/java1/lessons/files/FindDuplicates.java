@@ -12,26 +12,30 @@ public class FindDuplicates {
 //    дате-времени последнего изменения, размеру и по содержимому.
 
     //результат - список, содержащий списки строк с именами и полными путями совпадающих файлов.
-    public List<List<String>> findDuplicates(String startPath) throws IOException {
+    public List<List<String>> findDuplicates(String startPath){
         List<List<String>> result = new ArrayList<>();
 // собираем все файлы
         List<Path> paths = new ArrayList<>();
         Path dir = Paths.get(startPath);
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**");
-        Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-                if (pathMatcher.matches(dir.relativize(path))) {
-                    paths.add(path);
+        try {
+            Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs){
+                    if (pathMatcher.matches(dir.relativize(path))) {
+                        paths.add(path);
+                    }
+                    return FileVisitResult.CONTINUE;
                 }
-                return FileVisitResult.CONTINUE;
-            }
 
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException e) {
-                return FileVisitResult.CONTINUE;
-            }
-        });
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException e) {
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         List<String> pathsName = new ArrayList<>();
         List<String> pathsDate = new ArrayList<>();
@@ -48,18 +52,26 @@ public class FindDuplicates {
                     filesFound = 1;
                 }
 // проверка "Срок годности"
-                if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))){
-                    pathsDate.add(fileF.toString());
-                    filesFound = 2;
+                try {
+                    if (Files.getAttribute(fileS, "lastModifiedTime").equals(Files.getAttribute(fileF, "lastModifiedTime"))){
+                        pathsDate.add(fileF.toString());
+                        filesFound = 2;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 // проверка "Размер горчичников и масла в жопу побольше"
-                if (Files.size(fileS)==Files.size(fileF)){
-                    pathsSize.add(fileF.toString());
-                    filesFound = 3;
-                    if (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF))){
-                        pathsCont.add(fileF.toString());
-                        filesFound = 4;
+                try {
+                    if (Files.size(fileS)==Files.size(fileF)){
+                        pathsSize.add(fileF.toString());
+                        filesFound = 3;
+                        if (Arrays.equals(Files.readAllBytes(fileS), Files.readAllBytes(fileF))){
+                            pathsCont.add(fileF.toString());
+                            filesFound = 4;
+                        }
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             if (filesFound == 1) pathsName.add(fileS.toString());
