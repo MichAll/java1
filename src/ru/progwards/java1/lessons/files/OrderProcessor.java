@@ -1,12 +1,15 @@
 package ru.progwards.java1.lessons.files;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+
+import static java.nio.file.Files.readAllLines;
 
 class Order {
     public String shopId;           // идентификатор магазина
@@ -47,7 +50,7 @@ class OrderItem {
 public class OrderProcessor {
 
     // инициализирует класс, с указанием начальной папки для хранения файлов
-    Path startPath;
+    public Path startPath;
     List<Order> listOrder;
     int failFiles = 0;
 
@@ -72,22 +75,25 @@ public class OrderProcessor {
         String shopNull = shopId == null ? "???" : shopId;
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + shopNull + "-??????-????.csv");
         try {
-            Files.walkFileTree(startPath, new SimpleFileVisitor<Path>() {
+            Files.walkFileTree(startPath, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                     if (pathMatcher.matches(path)) {
                         if (checkDate(start, finish, path)) {
                             List<OrderItem> listItems = new ArrayList<>();
-                            List<String> items = new ArrayList<>((Files.readAllLines(path)));
+                            System.out.println(path);
+                            List<String> items = Files.readAllLines(path);
                             Double summa = 0d;
                             for (String str : items) {
                                 String[] item = str.split(",");
                                 OrderItem newItems = new OrderItem();
+                                if (item.length!=3) break;
                                 newItems.googsName = item[0].trim();
                                 newItems.count = Integer.parseInt(item[1].trim());
                                 newItems.price = Double.parseDouble(item[2].trim());
                                 summa += newItems.count * newItems.price;
                                 listItems.add(newItems);
+                                System.out.println(newItems.toString());
                             }
                             Collections.sort(listItems, new Comparator<OrderItem>() {
                                 @Override
@@ -170,8 +176,30 @@ public class OrderProcessor {
         }
         return result;
     }
+
+    public static void main(String[] args) throws IOException {
+        OrderProcessor x = new OrderProcessor("D:/JavaPackage/");
+        x.loadOrders(null, null, null);
+        //System.out.println(x.process(null));
+        //Path file = Paths.get("d:\\JavaPackage\\123\\S02-P01X12-0011.csv");
+    }
 }
 /*
+ERROR: Тест "Метод loadOrders(LocalDate start, LocalDate finish, String shopId)" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
+ERROR: Тест "Метод process(String shopId)" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
+ERROR: Тест "Метод statisticsByShop()" не пройден. Во время выполнения возникло исключение java.lang.NullPointerException
+ru.progwards.java1.lessons.files.OrderProcessor.statisticsByShop(OrderProcessor.java:143)
+ERROR: Тест "Метод statisticsByGoods()" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
+ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
+ERROR: Тест "Метод statisticsByDay()" не пройден. Во время выполнения возникло исключение java.lang.NullPointerException
+ru.progwards.java1.lessons.files.OrderProcessor.statisticsByDay(OrderProcessor.java:165)
+
+
     Информация о заказах поступает в виде файлов, которые лежат в под-папках разбитых по неделям, имена папок не имеют значения.
     Имя каждого файла имеет формат: AAA-999999-ZZZZ.csv где AAA - обязательные 3 символа shopId - идентификатор магазина,
     999999 - обязательные 6 символов orderId - номер заказа, ZZZZ - обязательные 4 символа customerId - идентификатор покупателя,
