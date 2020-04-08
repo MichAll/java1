@@ -110,9 +110,9 @@ public class OrderProcessor {
                                 newOrder.sum = summa;
                                 listOrder.add(newOrder);
                             }
-                        }
-                    }else
+                        }else
                         failFiles++;
+                    }
                     return FileVisitResult.CONTINUE;
                 }
                 @Override
