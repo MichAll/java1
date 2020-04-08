@@ -109,8 +109,7 @@ public class OrderProcessor {
                                 newOrder.items = listItems;
                                 newOrder.sum = summa;
                                 listOrder.add(newOrder);
-                            } else
-                                failFiles++;
+                            }
                         }else
                             failFiles++;
                     }
