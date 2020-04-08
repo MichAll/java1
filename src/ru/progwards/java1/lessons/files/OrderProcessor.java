@@ -110,8 +110,7 @@ public class OrderProcessor {
                                 newOrder.sum = summa;
                                 listOrder.add(newOrder);
                             }
-                        }else
-                            failFiles++;
+                        }
                     }else
                         failFiles++;
                     return FileVisitResult.CONTINUE;
