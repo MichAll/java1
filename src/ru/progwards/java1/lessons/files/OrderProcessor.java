@@ -84,7 +84,6 @@ public class OrderProcessor {
                                 String[] item = str.split(",");
                                 OrderItem newItems = new OrderItem();
                                 if (item.length!=3){
-                                    failFiles++;
                                     break;
                                 }
                                 newItems.googsName = item[0].trim();
@@ -93,22 +92,25 @@ public class OrderProcessor {
                                 summa += newItems.count * newItems.price;
                                 listItems.add(newItems);
                             }
-                            Collections.sort(listItems, new Comparator<OrderItem>() {
-                                @Override
-                                public int compare(OrderItem o1, OrderItem o2) {
-                                    return o1.googsName.compareTo(o2.googsName);
-                                }
-                            });
-                            String fileName = path.getFileName().toString();
-                            String[] str = fileName.substring(0, fileName.lastIndexOf(".")).split("-");
-                            Order newOrder = new Order();
-                            newOrder.datetime = LocalDateTime.ofInstant(Files.getLastModifiedTime(path).toInstant(), ZoneId.systemDefault());
-                            newOrder.shopId = str[0];
-                            newOrder.orderId = str[1];
-                            newOrder.customerId = str[2];
-                            newOrder.items = listItems;
-                            newOrder.sum = summa;
-                            listOrder.add(newOrder);
+                            if (!listItems.isEmpty()) {
+                                Collections.sort(listItems, new Comparator<OrderItem>() {
+                                    @Override
+                                    public int compare(OrderItem o1, OrderItem o2) {
+                                        return o1.googsName.compareTo(o2.googsName);
+                                    }
+                                });
+                                String fileName = path.getFileName().toString();
+                                String[] str = fileName.substring(0, fileName.lastIndexOf(".")).split("-");
+                                Order newOrder = new Order();
+                                newOrder.datetime = LocalDateTime.ofInstant(Files.getLastModifiedTime(path).toInstant(), ZoneId.systemDefault());
+                                newOrder.shopId = str[0];
+                                newOrder.orderId = str[1];
+                                newOrder.customerId = str[2];
+                                newOrder.items = listItems;
+                                newOrder.sum = summa;
+                                listOrder.add(newOrder);
+                            } else
+                                failFiles++;
                         }else
                             failFiles++;
                     }
