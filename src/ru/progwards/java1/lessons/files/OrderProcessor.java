@@ -1,15 +1,12 @@
 package ru.progwards.java1.lessons.files;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-
-import static java.nio.file.Files.readAllLines;
 
 class Order {
     public String shopId;           // идентификатор магазина
@@ -20,7 +17,7 @@ class Order {
     public double sum;             // сумма стоимости всех позиций в заказе
 
     public Order() {
-        items = new ArrayList<OrderItem>();
+
     }
 
     @Override
@@ -51,7 +48,8 @@ public class OrderProcessor {
 
     // инициализирует класс, с указанием начальной папки для хранения файлов
     public Path startPath;
-    List<Order> listOrder;
+    List<Order> listOrder = new ArrayList<>(); //удаляем инфу?
+    //List<OrderItem> listItems
     int failFiles = 0;
 
     public OrderProcessor(String startPath) {
@@ -71,7 +69,6 @@ public class OrderProcessor {
 //  При наличии хотя бы одной ошибке в формате файла, файл полностью игнорируется, т.е. Не поступает в обработку.
 //  Метод возвращает количество файлов с ошибками. При этом, если в классе содержалась информация, ее надо удалить
     public int loadOrders(LocalDate start, LocalDate finish, String shopId) {
-        List<Order> listOrder = new ArrayList<>(); //удаляем инфу?
         String shopNull = shopId == null ? "???" : shopId;
         PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/" + shopNull + "-??????-????.csv");
         try {
@@ -81,19 +78,20 @@ public class OrderProcessor {
                     if (pathMatcher.matches(path)) {
                         if (checkDate(start, finish, path)) {
                             List<OrderItem> listItems = new ArrayList<>();
-                            System.out.println(path);
                             List<String> items = Files.readAllLines(path);
                             Double summa = 0d;
                             for (String str : items) {
                                 String[] item = str.split(",");
                                 OrderItem newItems = new OrderItem();
-                                if (item.length!=3) break;
+                                if (item.length!=3){
+                                    failFiles++;
+                                    break;
+                                }
                                 newItems.googsName = item[0].trim();
                                 newItems.count = Integer.parseInt(item[1].trim());
                                 newItems.price = Double.parseDouble(item[2].trim());
                                 summa += newItems.count * newItems.price;
                                 listItems.add(newItems);
-                                System.out.println(newItems.toString());
                             }
                             Collections.sort(listItems, new Comparator<OrderItem>() {
                                 @Override
@@ -108,6 +106,7 @@ public class OrderProcessor {
                             newOrder.shopId = str[0];
                             newOrder.orderId = str[1];
                             newOrder.customerId = str[2];
+                            newOrder.items = listItems;
                             newOrder.sum = summa;
                             listOrder.add(newOrder);
                         }else
@@ -147,7 +146,9 @@ public class OrderProcessor {
     public Map<String, Double> statisticsByShop() {
         Map<String, Double> result = new TreeMap<>();
         for (Order o : listOrder) {
-            if(result.containsKey(o.shopId)) result.put(o.shopId, result.get(o.shopId) + o.sum);
+            String key = o.shopId;
+            double sum = result.containsKey(key) ? result.get(key) : 0;
+            result.put(key, sum + o.sum);
         }
         return result;
     }
@@ -157,8 +158,11 @@ public class OrderProcessor {
     public Map<String, Double> statisticsByGoods() {
         Map<String, Double> result = new TreeMap<>();
         for (Order order : listOrder) {
+            System.out.println(order.items);
             for (OrderItem item : order.items) {
-                if (result.containsKey(item.googsName)) result.put(item.googsName, result.get(item.googsName) + item.count * item.price);
+                String key = item.googsName;
+                double sum = result.containsKey(key) ? result.get(key) : 0;
+                result.put(key, sum + item.count*item.price);
                 }
             }
         return result;
@@ -167,39 +171,25 @@ public class OrderProcessor {
     // выдать информацию по объему продаж по дням (отсортированную по ключам):
 // LocalDate - конкретный день, double - сумма стоимости всех проданных товаров в этот день
     public Map<LocalDate, Double> statisticsByDay() {
-        Map<LocalDate, Double> result = new TreeMap<LocalDate, Double>();
+        Map<LocalDate, Double> result = new TreeMap<>();
         for (Order o : listOrder) {
             LocalDate key = o.datetime.toLocalDate();
-            boolean isExists = result.containsKey(key);
-            double sum = isExists ? result.get(key) : 0;
+            double sum = result.containsKey(key) ? result.get(key) : 0;
             result.put(key, sum + o.sum);
         }
         return result;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         OrderProcessor x = new OrderProcessor("D:/JavaPackage/");
         x.loadOrders(null, null, null);
-        //System.out.println(x.process(null));
-        //Path file = Paths.get("d:\\JavaPackage\\123\\S02-P01X12-0011.csv");
+        System.out.println(x.process(null));
+        System.out.println(x.statisticsByShop());
+        System.out.println(x.statisticsByGoods());
+        System.out.println(x.statisticsByDay());
     }
 }
 /*
-ERROR: Тест "Метод loadOrders(LocalDate start, LocalDate finish, String shopId)" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
-ERROR: Тест "Метод process(String shopId)" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
-ERROR: Тест "Метод statisticsByShop()" не пройден. Во время выполнения возникло исключение java.lang.NullPointerException
-ru.progwards.java1.lessons.files.OrderProcessor.statisticsByShop(OrderProcessor.java:143)
-ERROR: Тест "Метод statisticsByGoods()" не пройден. Во время выполнения возникло исключение java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:87)
-ru.progwards.java1.lessons.files.OrderProcessor$1.visitFile(OrderProcessor.java:75)
-ERROR: Тест "Метод statisticsByDay()" не пройден. Во время выполнения возникло исключение java.lang.NullPointerException
-ru.progwards.java1.lessons.files.OrderProcessor.statisticsByDay(OrderProcessor.java:165)
-
-
     Информация о заказах поступает в виде файлов, которые лежат в под-папках разбитых по неделям, имена папок не имеют значения.
     Имя каждого файла имеет формат: AAA-999999-ZZZZ.csv где AAA - обязательные 3 символа shopId - идентификатор магазина,
     999999 - обязательные 6 символов orderId - номер заказа, ZZZZ - обязательные 4 символа customerId - идентификатор покупателя,
