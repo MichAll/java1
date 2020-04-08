@@ -112,7 +112,8 @@ public class OrderProcessor {
                             }
                         }else
                             failFiles++;
-                    }
+                    }else
+                        failFiles++;
                     return FileVisitResult.CONTINUE;
                 }
                 @Override
@@ -123,6 +124,7 @@ public class OrderProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(failFiles);
         return failFiles;
     }
 
@@ -182,7 +184,7 @@ public class OrderProcessor {
     }
 
     public static void main(String[] args) {
-        OrderProcessor x = new OrderProcessor("D:/JavaPackage/");
+        OrderProcessor x = new OrderProcessor("D:/JavaPackage/345");
         x.loadOrders(null, null, null);
         System.out.println(x.process(null));
         System.out.println(x.statisticsByShop());
