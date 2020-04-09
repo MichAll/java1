@@ -84,6 +84,7 @@ public class OrderProcessor {
                                 String[] item = str.split(",");
                                 OrderItem newItems = new OrderItem();
                                 if (item.length!=3){
+                                    failFiles++;
                                     break;
                                 }
                                 newItems.googsName = item[0].trim();
