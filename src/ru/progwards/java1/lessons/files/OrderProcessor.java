@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -111,8 +112,7 @@ public class OrderProcessor {
                                 newOrder.sum = summa;
                                 listOrder.add(newOrder);
                             }
-                        }else
-                        failFiles++;
+                        }
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -186,6 +186,7 @@ public class OrderProcessor {
     public static void main(String[] args) {
         OrderProcessor x = new OrderProcessor("D:/JavaPackage/345");
         x.loadOrders(null, null, null);
+        //x.loadOrders(LocalDate.of(2020, Month.APRIL, 1), LocalDate.of(2020, Month.APRIL, 7), null);
         System.out.println(x.process(null));
         System.out.println(x.statisticsByShop());
         System.out.println(x.statisticsByGoods());
