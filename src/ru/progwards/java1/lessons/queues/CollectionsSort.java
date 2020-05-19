@@ -47,25 +47,26 @@ public class CollectionsSort {
 // В случае равенства производительности каких-то методов, возвращать их названия в алфавитном порядке.
     public static Collection<String> compareSort(){
         List<Integer> massData = new ArrayList<>();
-        int countEl = 99;
+        int countEl = 100;
         Random rnd = new Random();
         for (int i=0; i< countEl; i++)
             massData.add(rnd.nextInt());
         long start = System.currentTimeMillis();
         mySort(massData);
         System.out.println(System.currentTimeMillis()-start);
-        ListSort list1 = new ListSort("mySort",System.currentTimeMillis()-start);
+        ListSort list1 = new ListSort("mySort",5);//System.currentTimeMillis()-start);
         start = System.currentTimeMillis();
         minSort(massData);
         System.out.println(System.currentTimeMillis()-start);
-        ListSort list2 = new ListSort("minSort",System.currentTimeMillis()-start);
+        ListSort list2 = new ListSort("minSort",5);//System.currentTimeMillis()-start);
         start = System.currentTimeMillis();
         collSort(massData);
         System.out.println(System.currentTimeMillis()-start);
-        ListSort list3 = new ListSort("collSort",System.currentTimeMillis()-start);
-        TreeSet<ListSort> treeSet = new TreeSet<>(new Comparator<ListSort>() {
+        ListSort list3 = new ListSort("collSort",5);//System.currentTimeMillis()-start);
+        TreeSet<ListSort> treeSet = new TreeSet<>(new Comparator<>() {
             @Override
             public int compare(ListSort o1, ListSort o2) {
+//                return Long.compare(o1.time, o2.time);
                 if (o1.time>o2.time) return 1;
                 else if (o1.time<o2.time) return -1;
                 else return o1.list.compareTo(o2.list);
@@ -76,7 +77,7 @@ public class CollectionsSort {
         return result;
     }
 
-    public static class ListSort implements Comparable<ListSort>{
+    public static class ListSort{
         private String list;
         private long time;
 
@@ -87,10 +88,6 @@ public class CollectionsSort {
         @Override
         public String toString() {
             return (list);
-        }
-        @Override
-        public int compareTo(ListSort o) {
-            return Long.compare(this.time,o.time);
         }
     }
     public static void main(String[] args) {
