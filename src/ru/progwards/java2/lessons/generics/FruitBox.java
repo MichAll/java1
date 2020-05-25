@@ -14,6 +14,7 @@ public class FruitBox <T extends Fruit> extends ArrayList{
     }
 
     public float getWeight() {
+        if (this.size() == 0) return 0;
         T fruit = (T)get(0);
         float result = size() * fruit.getWeight();
         return result;
