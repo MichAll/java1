@@ -1,5 +1,7 @@
 package ru.progwards.MichAll.java2;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.List;
 
@@ -35,10 +37,23 @@ class Person {
             return "";
         return reverseChars(str.substring(1))+str.charAt(0);
     }
-
+    private void setName(String name) {
+        this.name = name;
+    }
+    void callSetName(Person person, String name){
+        Class clazz = person.getClass();
+        try {
+            Method method = clazz.getDeclaredMethod("setName", String.class);
+            method.setAccessible(true);
+            method.invoke(person,name);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         Person x = new Person("XYZ", 5);
+        x.callSetName(x, "Vova");
         //System.out.println(x.sumSequence(5));
-        System.out.println(x.reverseChars("12345"));
+        //System.out.println(x.reverseChars("12345"));
     }
 }
