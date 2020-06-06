@@ -53,7 +53,7 @@ public class calculator {
     }
 
     public static void main(String[] args) {
-        System.out.println(smash("2+3*2"));
-        System.out.println(smash("2+3*(2-8)/4*(5+1)-7"));
+        System.out.println(calculate("2+3*2"));
+        System.out.println(smash("2+(3*(2-8))/4*(5+1)-7"));
     }
 }

@@ -29,4 +29,17 @@ InvalidPointerException - неверный указатель. Возникае�
 что бы была близкая производительность.
  */
 public class Heap {
+    byte[] bytes;
+    Heap(int maxHeapSize) {
+        this.bytes = bytes;
+    }
+    public int malloc(int size) {
+        return 0;
+    }
+    public void defrag() {
+
+    }
+    public void compact() {
+
+    }
 }
